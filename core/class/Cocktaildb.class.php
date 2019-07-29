@@ -82,20 +82,35 @@ class CocktaildbCmd extends cmd
 		$Cocktails = json_decode($DataCocktaildb, true);
 
 		foreach ($Cocktails["drinks"] as $cocktail )
-	        {
+		{
 	                $cocktaildbobj->checkAndUpdateCmd('strDrink',$cocktail["strDrink"]."<br>");
 	                $cocktaildbobj->checkAndUpdateCmd('strGlass',$cocktail["strGlass"]."<br>");
-	                $cocktaildbobj->checkAndUpdateCmd('strInstructions',$cocktail["strInstructions"]."<br>");
+	                $cocktaildbobj->checkAndUpdateCmd('strInstructions',$this->translate($cocktail["strInstructions"])."<br>");
 	                $cocktaildbobj->checkAndUpdateCmd('strDrinkThumb',$cocktail["strDrinkThumb"]);
-			$val = $cocktail["strMeasure1"]." ".$cocktail["strIngredient1"];
+			$val = $this->translate($cocktail["strMeasure1"])." ".$this->translate($cocktail["strIngredient1"]);
 			for ($x = 2; $x <= 15; $x++) {
-				$sep = ($x%2)?"<br>":"";
-				$val = $val . (empty($cocktail["strIngredient".$x])?"":",".$sep).$cocktail["strMeasure".$x]." ".$cocktail["strIngredient".$x];
-		        }
+				$sep = ($x%2)?",,":",";
+				$val = $val . (empty($cocktail["strIngredient".$x])?"":$sep).$this->translate($cocktail["strMeasure".$x]).
+					     " ".$this->translate($cocktail["strIngredient".$x]);
+			}
 	                $cocktaildbobj->checkAndUpdateCmd('ingredients',$val."<br>");
 		}
 		$dataCmd->save();
         }
     }
+    function translate($val)
+    {
+        $CLIENT_ID = "FREE_TRIAL_ACCOUNT";
+        $CLIENT_SECRET = "PUBLIC_SECRET";
+        $postData = array( 'fromLang' => "en", 'toLang' => "it", 'text' => $val);
+        $headers = array( 'Content-Type: application/json', 'X-WM-CLIENT-ID: '.$CLIENT_ID, 'X-WM-CLIENT-SECRET: '.$CLIENT_SECRET);
+        $url = 'http://api.whatsmate.net/v1/translation/translate';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+}
 
 }
