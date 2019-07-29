@@ -83,15 +83,16 @@ class CocktaildbCmd extends cmd
 
 		foreach ($Cocktails["drinks"] as $cocktail )
 	        {
-	                $cocktaildbobj->checkAndUpdateCmd('strDrink',$cocktail["strDrink"]);
-	                $cocktaildbobj->checkAndUpdateCmd('strGlass',$cocktail["strGlass"]);
-	                $cocktaildbobj->checkAndUpdateCmd('strInstructions',$cocktail["strInstructions"]);
+	                $cocktaildbobj->checkAndUpdateCmd('strDrink',$cocktail["strDrink"]."<br>");
+	                $cocktaildbobj->checkAndUpdateCmd('strGlass',$cocktail["strGlass"]."<br>");
+	                $cocktaildbobj->checkAndUpdateCmd('strInstructions',$cocktail["strInstructions"]."<br>");
 	                $cocktaildbobj->checkAndUpdateCmd('strDrinkThumb',$cocktail["strDrinkThumb"]);
 			$val = $cocktail["strMeasure1"]." ".$cocktail["strIngredient1"];
 			for ($x = 2; $x <= 15; $x++) {
-				$val = $val . (empty($cocktail["strIngredient".$x])?"":",").$cocktail["strMeasure".$x]." ".$cocktail["strIngredient".$x];
+				$sep = ($x%2)?"<br>":"";
+				$val = $val . (empty($cocktail["strIngredient".$x])?"":",".$sep).$cocktail["strMeasure".$x]." ".$cocktail["strIngredient".$x];
 		        }
-	                $cocktaildbobj->checkAndUpdateCmd('ingredients',$val);
+	                $cocktaildbobj->checkAndUpdateCmd('ingredients',$val."<br>");
 		}
 		$dataCmd->save();
         }
