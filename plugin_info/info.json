@@ -1,0 +1,15 @@
+{
+  "id": "Cocktaildb",
+  "name": "CocktailDB",
+  "licence": "GPL",
+  "require": "3.0",
+  "version": "1.0",
+  "category": "wellness",
+  "hasDependency": false,
+  "hasOwnDaemon": false,
+  "maxDependancyInstallTime": 0,
+  "documentation": "https://nextdom.github.io/plugin-Cocktaildb/#language#/",
+  "changelog": "https://nextdom.github.io/plugin-Cocktaildb/#language#/changelog",
+  "description": "recette de cocktails, 1 cocktail par jour.",
+  "author": "Fefeld"
+}
