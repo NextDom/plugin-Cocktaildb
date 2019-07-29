@@ -43,6 +43,7 @@ class Cocktaildb extends eqLogic
 	    $this->createcmd('Type de Verre','strGlass','info','string');
 	    $this->createcmd('Ingredients','ingredients','info','string');
 	    $this->createcmd('Recette','strInstructions','info','string');
+	    $this->createcmd('URL Image','strDrinkThumb','info','string');
 	    $this->createcmd('Rafraichir','refresh','action','other');
         }
     }
@@ -85,6 +86,7 @@ class CocktaildbCmd extends cmd
 	                $cocktaildbobj->checkAndUpdateCmd('strDrink',$cocktail["strDrink"]);
 	                $cocktaildbobj->checkAndUpdateCmd('strGlass',$cocktail["strGlass"]);
 	                $cocktaildbobj->checkAndUpdateCmd('strInstructions',$cocktail["strInstructions"]);
+	                $cocktaildbobj->checkAndUpdateCmd('strDrinkThumb',$cocktail["strDrinkThumb"]);
 			$val = $cocktail["strMeasure1"]." ".$cocktail["strIngredient1"];
 			for ($x = 2; $x <= 15; $x++) {
 				$val = $val . (empty($cocktail["strIngredient".$x])?"":",").$cocktail["strMeasure".$x]." ".$cocktail["strIngredient".$x];
